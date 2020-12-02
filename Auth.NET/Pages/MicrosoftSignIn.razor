@@ -1,0 +1,25 @@
+﻿@page "/signin-microsoft"
+@inject NavigationManager NavigationManager
+@inject MicrosoftAuth Auth 
+
+
+<div>
+    <p>Token : @Token</p><br/>
+</div>
+
+@code {
+
+    private string Token { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Token = (await Auth.GetToken(new Uri(NavigationManager.Uri))).IdToken;
+        }
+        StateHasChanged();
+    }
+
+   
+
+}
