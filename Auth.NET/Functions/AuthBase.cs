@@ -36,13 +36,13 @@ namespace Auth.NET.Functions
         protected NameValueCollection Parameters { get; }
         protected string Path { get; set; }
 
-        public async Task Connect(string scope)
+        public async Task Connect(string scope, Action<string> openUrl)
         {
             GenerateAuthData();
             Parameters["scope"] = scope;
             var url = GenerateUri();
             await StoreData();
-            NavigationManager.NavigateTo(url.ToString());
+            openUrl(url.ToString());
         }
 
         private void GenerateAuthData()
